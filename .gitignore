@@ -31,5 +31,5 @@ Jarfile.lock
 # IDE
 .classpath
 .project
-transit.jar
+transito.jar
 /target/

@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.cognitect.transit.ruby.marshaler;
+package com.cognitect.transito.ruby.marshaler;
 
 import java.io.OutputStream;
 import java.util.Map;
@@ -25,8 +25,8 @@ import org.jruby.anno.JRubyMethod;
 import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
 
-import com.cognitect.transit.TransitFactory;
-import com.cognitect.transit.WriteHandler;
+import com.cognitect.transito.TransitFactory;
+import com.cognitect.transito.WriteHandler;
 
 @JRubyClass(name="Transit::Marshaler::VerboseJson")
 public class VerboseJson extends Base {

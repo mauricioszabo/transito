@@ -13,15 +13,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.cognitect.transit.ruby.unmarshaler;
+package com.cognitect.transito.ruby.unmarshaler;
 
 import org.jruby.Ruby;
 import org.jruby.RubyArray;
 import org.jruby.javasupport.JavaUtil;
 import org.jruby.runtime.builtin.IRubyObject;
 
-import com.cognitect.transit.ArrayReader;
-import com.cognitect.transit.ruby.TransitTypeConverter;
+import com.cognitect.transito.ArrayReader;
+import com.cognitect.transito.ruby.TransitTypeConverter;
 
 public class RubyArrayReader implements ArrayReader<RubyArray, IRubyObject, Object> {
     private Ruby runtime;

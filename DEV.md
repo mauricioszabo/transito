@@ -3,9 +3,9 @@
     gem install bundler
     bundle install
 
-Transit Ruby uses transit as a submodule to get at the transit
+Transit Ruby uses transito as a submodule to get at the transito
 exemplar files. The tests will not run without the exemplar files.
-You need to run a couple of git commands to set up the transit
+You need to run a couple of git commands to set up the transito
 git submodule:
 
     git submodule init
@@ -17,4 +17,4 @@ git submodule:
 
 ## Benchmarks
 
-    ./bin/benchmark # reads transit data in json and json-verbose formats
+    ./bin/benchmark # reads transito data in json and json-verbose formats

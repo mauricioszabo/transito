@@ -3,7 +3,7 @@
 # All rights reserved.
 
 $LOAD_PATH << 'lib'
-require 'transit'
+require 'transito'
 
 transport = (ARGV[0] || "json").gsub("-","_").to_sym
 

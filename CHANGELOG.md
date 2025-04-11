@@ -4,12 +4,12 @@
 
 ### 0.8.588 / 2015-04-10
 
-* Update to transit-java-0.8.287 for json int boundary fix in JRuby
+* Update to transito-java-0.8.287 for json int boundary fix in JRuby
 
 ### 0.8.586 / 2015-03-13
 
 * Add handler caching for MRI
-* Bump to transit-java-0.8.285 for handler caching in JRuby
+* Bump to transito-java-0.8.285 for handler caching in JRuby
 
 ### 0.8.572 / 2015-01-15
 
@@ -28,7 +28,7 @@
 
 ### 0.8.560 (java platform only) / 2014-09-12
 
-* Bump dependency on transit-java to 0.8.269
+* Bump dependency on transito-java to 0.8.269
   * fixes bug which turned an empty set into an array
 
 ### 0.8.552 (java platform only) / 2014-09-12

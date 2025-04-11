@@ -7,15 +7,15 @@ $LOAD_PATH << File.expand_path("../../lib", __FILE__)
 require 'benchmark'
 require 'stringio'
 require 'json'
-require 'transit'
+require 'transito'
 require 'oj'
 
-def read_transit(data)
+def read_transito(data)
   io = StringIO.new(data, 'r+')
   Transit::Reader.new(:json, io).read
 end
 
-def write_transit(data)
+def write_transito(data)
   io = StringIO.new('', 'w+')
   Transit::Writer.new(:json, io).write(data)
 end
@@ -31,22 +31,22 @@ n = 100
 
 include Benchmark
 puts "**************************"
-puts "transit-json"
-open("../transit-format/examples/0.8/example.json", 'r') {|f| data = f.read}
-Benchmark.benchmark(CAPTION, 20, FORMAT, "avg read transit:", "avg read oj:", "avg write transit:") do |bm|
-  t = bm.report("read transit (#{n} x):")  { n.times { read_transit(data) } }
+puts "transito-json"
+open("../transito-format/examples/0.8/example.json", 'r') {|f| data = f.read}
+Benchmark.benchmark(CAPTION, 20, FORMAT, "avg read transito:", "avg read oj:", "avg write transito:") do |bm|
+  t = bm.report("read transito (#{n} x):")  { n.times { read_transito(data) } }
   y = bm.report("read oj (#{n} x):")       { n.times { read_json(data) } }
-  w = bm.report("write transit (#{n} x):") { n.times { write_transit(data) } }
+  w = bm.report("write transito (#{n} x):") { n.times { write_transito(data) } }
   [t/n, y/n, w/n]
 end
 
 puts "**************************"
-puts "transit-json-verbose"
-open("../transit-format/examples/0.8/example.verbose.json", 'r') {|f| data = f.read}
-Benchmark.benchmark(CAPTION, 20, FORMAT, "avg read transit:", "avg read oj:", "avg write transit:") do |bm|
-  t = bm.report("read transit (#{n} x):")  { n.times { read_transit(data) } }
+puts "transito-json-verbose"
+open("../transito-format/examples/0.8/example.verbose.json", 'r') {|f| data = f.read}
+Benchmark.benchmark(CAPTION, 20, FORMAT, "avg read transito:", "avg read oj:", "avg write transito:") do |bm|
+  t = bm.report("read transito (#{n} x):")  { n.times { read_transito(data) } }
   y = bm.report("read oj (#{n} x):")       { n.times { read_json(data) } }
-  w = bm.report("write transit (#{n} x):") { n.times { write_transit(data) } }
+  w = bm.report("write transito (#{n} x):") { n.times { write_transito(data) } }
   [t/n, y/n, w/n]
 end
 puts "**************************"

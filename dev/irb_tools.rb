@@ -21,7 +21,7 @@ def time
 end
 
 class Object
-  def to_transit(format=:json)
+  def to_transito(format=:json)
     sio = StringIO.new
     Transit::Writer.new(format, sio).write(self)
     sio.string
@@ -29,7 +29,7 @@ class Object
 end
 
 class String
-  def from_transit(format=:json)
+  def from_transito(format=:json)
     sio = StringIO.new(self)
     Transit::Reader.new(format, sio).read
   end

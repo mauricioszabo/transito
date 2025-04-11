@@ -28,15 +28,15 @@ To build api documentation:
 
 #### Pre-requisites:
 
-* permission to push gems to https://rubygems.org/gems/transit-ruby
+* permission to push gems to https://rubygems.org/gems/transito-ruby
 * public and private key files for MRI
 
 To sign the gem for MRI (currently disabled for JRuby), you'll need
 to generate public and private keys. Follow the directions from `gem
 cert -h` to generate the following files:
 
-    ~/.gem/transit-ruby/gem-private_key.pem
-    ~/.gem/transit-ruby/gem-public_cert.pem
+    ~/.gem/transito-ruby/gem-private_key.pem
+    ~/.gem/transito-ruby/gem-public_cert.pem
 
 Once those are in place, you can run:
 

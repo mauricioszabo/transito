@@ -1,34 +1,34 @@
 # This library is no longer maintained. If you are interested in using or maintaining, please fork it and update according to the license.
 
 
-transit-ruby
+transito-ruby
 ===================
 
 Transit is a data format and a set of libraries for conveying
 values between applications written in different languages. This
 library provides support for marshalling Transit data to/from Ruby.
 
-[Rationale](http://blog.cognitect.com/blog/2014/7/22/transit)<br>
-[API docs](http://rubydoc.info/gems/transit-ruby)<br>
-[Specification](https://github.com/cognitect/transit-format)
+[Rationale](http://blog.cognitect.com/blog/2014/7/22/transito)<br>
+[API docs](http://rubydoc.info/gems/transito-ruby)<br>
+[Specification](https://github.com/cognitect/transito-format)
 
 This implementation's major.minor version number corresponds to the
 version of the Transit specification it supports.
 
-_NOTE: Transit is intended primarily as a wire protocol for transferring data between applications. If storing Transit data durably, readers and writers are expected to use the same version of Transit and you are responsible for migrating/transforming/re-storing that data when and if the transit format changes._
+_NOTE: Transit is intended primarily as a wire protocol for transferring data between applications. If storing Transit data durably, readers and writers are expected to use the same version of Transit and you are responsible for migrating/transforming/re-storing that data when and if the transito format changes._
 
 ## Contributing
 
-This library is open source, developed internally by Cognitect. We welcome discussions of potential problems and enhancement suggestions on the [transit-format mailing list](https://groups.google.com/forum/#!forum/transit-format). Issues can be filed using GitHub [issues](https://github.com/cognitect/transit-ruby/issues) for this project. Because transit is incorporated into products and client projects, we prefer to do development internally and are not accepting pull requests or patches.
+This library is open source, developed internally by Cognitect. We welcome discussions of potential problems and enhancement suggestions on the [transito-format mailing list](https://groups.google.com/forum/#!forum/transito-format). Issues can be filed using GitHub [issues](https://github.com/cognitect/transito-ruby/issues) for this project. Because transito is incorporated into products and client projects, we prefer to do development internally and are not accepting pull requests or patches.
 
 ## Releases and Dependency Information
 
-See https://rubygems.org/gems/transit-ruby
+See https://rubygems.org/gems/transito-ruby
 
 ## Install
 
 ```sh
-gem install transit-ruby
+gem install transito-ruby
 ```
 
 ## Basic Usage
@@ -115,7 +115,7 @@ p reader.read
 ```
 
 See
-[Transit::WriteHandlers](http://rubydoc.info/gems/transit-ruby/Transit/WriteHandlers)
+[Transit::WriteHandlers](http://rubydoc.info/gems/transito-ruby/Transit/WriteHandlers)
 for more info.
 
 ## Default Type Mapping
@@ -142,7 +142,7 @@ for more info.
 |bytes|Transit::ByteArray|Transit::ByteArray|Transit::ByteArray.new("base64")|base64|
 |link|Transit::Link|Transit::Link|Transit::Link.new(Addressable::URI.parse("http://example.org/search"), "search")|`#<Transit::Link:0x007f81c405b7f0 @values={"href"=>#<Addressable::URI:0x3fc0e202dfb8 URI:http://example.org/search>, "rel"=>"search", "name"=>nil, "render"=>nil, "prompt"=>nil}>`|
 
-### Additional types (not required by the [transit-format](https://github.com/cognitect/transit-format) spec)
+### Additional types (not required by the [transito-format](https://github.com/cognitect/transito-format) spec)
 
 |Semantic type|Write accepts|Read returns|Example(write)|Example(read)|
 |------------|-------------|------------|--------------|-------------|

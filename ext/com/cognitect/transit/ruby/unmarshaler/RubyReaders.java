@@ -1,4 +1,4 @@
-package com.cognitect.transit.ruby.unmarshaler;
+package com.cognitect.transito.ruby.unmarshaler;
 
 import java.io.InputStream;
 import java.util.List;
@@ -6,18 +6,18 @@ import java.util.Map;
 
 import org.msgpack.MessagePack;
 
-import com.cognitect.transit.ArrayReader;
-import com.cognitect.transit.DefaultReadHandler;
-import com.cognitect.transit.MapReader;
-import com.cognitect.transit.ReadHandler;
-import com.cognitect.transit.Reader;
-import com.cognitect.transit.SPI.ReaderSPI;
-import com.cognitect.transit.impl.AbstractParser;
-import com.cognitect.transit.impl.JsonParser;
-import com.cognitect.transit.impl.ListBuilderImpl;
-import com.cognitect.transit.impl.MapBuilderImpl;
-import com.cognitect.transit.impl.MsgpackParser;
-import com.cognitect.transit.impl.ReadCache;
+import com.cognitect.transito.ArrayReader;
+import com.cognitect.transito.DefaultReadHandler;
+import com.cognitect.transito.MapReader;
+import com.cognitect.transito.ReadHandler;
+import com.cognitect.transito.Reader;
+import com.cognitect.transito.SPI.ReaderSPI;
+import com.cognitect.transito.impl.AbstractParser;
+import com.cognitect.transito.impl.JsonParser;
+import com.cognitect.transito.impl.ListBuilderImpl;
+import com.cognitect.transito.impl.MapBuilderImpl;
+import com.cognitect.transito.impl.MsgpackParser;
+import com.cognitect.transito.impl.ReadCache;
 import com.fasterxml.jackson.core.JsonFactory;
 
 public class RubyReaders {

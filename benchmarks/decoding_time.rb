@@ -13,7 +13,7 @@
 # limitations under the License.
 
 $LOAD_PATH << File.expand_path("../../lib", __FILE__)
-require 'transit'
+require 'transito'
 require 'benchmark'
 
 decoder = Transit::Decoder.new

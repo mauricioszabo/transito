@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.cognitect.transit.ruby.unmarshaler;
+package com.cognitect.transito.ruby.unmarshaler;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -26,11 +26,11 @@ import org.jruby.runtime.Block;
 import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
 
-import com.cognitect.transit.ArrayReader;
-import com.cognitect.transit.DefaultReadHandler;
-import com.cognitect.transit.MapReader;
-import com.cognitect.transit.ReadHandler;
-import com.cognitect.transit.SPI.ReaderSPI;
+import com.cognitect.transito.ArrayReader;
+import com.cognitect.transito.DefaultReadHandler;
+import com.cognitect.transito.MapReader;
+import com.cognitect.transito.ReadHandler;
+import com.cognitect.transito.SPI.ReaderSPI;
 
 @JRubyClass(name="Transit::Unmarshaler::Json")
 public class Json extends Base {

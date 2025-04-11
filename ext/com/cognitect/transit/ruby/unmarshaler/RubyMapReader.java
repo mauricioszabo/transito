@@ -13,15 +13,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.cognitect.transit.ruby.unmarshaler;
+package com.cognitect.transito.ruby.unmarshaler;
 
 import org.jruby.Ruby;
 import org.jruby.RubyHash;
 import org.jruby.javasupport.JavaUtil;
 import org.jruby.runtime.builtin.IRubyObject;
 
-import com.cognitect.transit.MapReader;
-import com.cognitect.transit.ruby.TransitTypeConverter;
+import com.cognitect.transito.MapReader;
+import com.cognitect.transito.ruby.TransitTypeConverter;
 
 public class RubyMapReader implements MapReader<RubyHash, RubyHash, Object, Object> {
     private Ruby runtime;
