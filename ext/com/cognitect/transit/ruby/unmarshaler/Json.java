@@ -32,7 +32,7 @@ import com.cognitect.transito.MapReader;
 import com.cognitect.transito.ReadHandler;
 import com.cognitect.transito.SPI.ReaderSPI;
 
-@JRubyClass(name="Transit::Unmarshaler::Json")
+@JRubyClass(name="Transito::Unmarshaler::Json")
 public class Json extends Base {
     private static final long serialVersionUID = -6605166968548176488L;
 
@@ -46,7 +46,7 @@ public class Json extends Base {
      **/
     @JRubyMethod(name="new", meta=true, required=1, rest=true)
     public static IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject[] args) {
-        RubyClass rubyClass = (RubyClass)context.getRuntime().getClassFromPath("Transit::Unmarshaler::Json");
+        RubyClass rubyClass = (RubyClass)context.getRuntime().getClassFromPath("Transito::Unmarshaler::Json");
         Json json = (Json)rubyClass.allocate();
         json.instance_variable_set(context.getRuntime().newString("@decoder"), newDecoder(context, args[1]));
         json.init(context, args);

@@ -28,7 +28,7 @@ public class TransitService implements BasicLibraryService {
 
     @Override
     public boolean basicLoad(Ruby runtime) throws IOException {
-        RubyModule transito = runtime.defineModule("Transit");
+        RubyModule transito = runtime.defineModule("Transito");
         RubyModule unmarshaler = transito.defineModuleUnder("Unmarshaler");
         RubyClass json_unmarshaler = unmarshaler.defineClassUnder("Json", runtime.getObject(), new ObjectAllocator() {
             private com.cognitect.transito.ruby.unmarshaler.Json json = null;

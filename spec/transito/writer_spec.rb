@@ -15,7 +15,7 @@
 require 'spec_helper'
 require 'json'
 
-module Transit
+module Transito
   describe Writer do
     let(:io) { StringIO.new('', 'w+') }
     let(:writer) { Writer.new(:json_verbose, io) }
@@ -42,7 +42,7 @@ module Transit
       marshals_scalar("a UUID",
                       UUID.new("dda5a83f-8f9d-4194-ae88-5745c8ca94a7"),
                       "~udda5a83f-8f9d-4194-ae88-5745c8ca94a7")
-      marshals_scalar("a Transit::Symbol", Transit::Symbol.new("foo"), "~$foo" )
+      marshals_scalar("a Transito::Symbol", Transito::Symbol.new("foo"), "~$foo" )
       marshals_scalar("a Fixnum", 9007199254740999, "~i9007199254740999")
       marshals_scalar("a Bignum", 9223372036854775806, "~i9223372036854775806")
       marshals_scalar("a Very Bignum", 4256768765123454321897654321234567, "~n4256768765123454321897654321234567")
@@ -51,7 +51,7 @@ module Transit
       # org.apache.commons.codec.binary.Base64, doesn't add any. Java
       # method has option to add line feed, but every 76 characters.
       # this divergence may be inevitable
-      if Transit::jruby?
+      if Transito::jruby?
         marshals_scalar("a ByteArray", ByteArray.new(bytes), "~b#{ByteArray.new(bytes).to_base64}".gsub(/\n/, ""))
       else
         marshals_scalar("a ByteArray", ByteArray.new(bytes), "~b#{ByteArray.new(bytes).to_base64}")
@@ -76,7 +76,7 @@ module Transit
           def tag(_) nil end
         end
         writer = Writer.new(:json_verbose, io, :handlers => {Date => handler.new})
-        if Transit::jruby?
+        if Transito::jruby?
           assert { rescuing { writer.write(Date.today) }.message =~ /Not supported/ }
         else
           assert { rescuing { writer.write(Date.today) }.message =~ /must provide a non-nil tag/ }
@@ -140,6 +140,11 @@ module Transit
     describe "formats" do
       describe "JSON" do
         let(:writer) { Writer.new(:json, io) }
+
+        it "translates some qualified keyword without needing to escape" do
+          writer.write(:"hello__world")
+          expect(JSON.parse(io.string)).to eql(["~#'", "~:hello/world"])
+        end
 
         it "writes a map as an array prefixed with '^ '" do
           writer.write({:a => :b, 3 => 4})
@@ -228,7 +233,7 @@ module Transit
 
       # JRuby skips these 3 examples since they use raw massage pack
       # api. Also, JRuby doesn't have good counterpart.
-      describe "MESSAGE_PACK", :unless => Transit::jruby? do
+      describe "MESSAGE_PACK", :unless => Transito::jruby? do
         let(:writer) { Writer.new(:msgpack, io) }
 
         it "writes a single-char tagged-value as a 2-element array" do
@@ -299,7 +304,7 @@ module Transit
         end
 
         it 'raises when there is no handler for the type at the top level' do
-          if Transit::jruby?
+          if Transito::jruby?
             assert { rescuing { writer.write(Class.new.new) }.message =~ /Not supported/ }
           else
             assert { rescuing { writer.write(Class.new.new) }.message =~ /Can not find a Write Handler/ }
@@ -307,7 +312,7 @@ module Transit
         end
 
         it 'raises when there is no handler for the type' do
-          if Transit::jruby?
+          if Transito::jruby?
             assert { rescuing { writer.write([Class.new.new]) }.message =~ /Not supported/ }
           else
             assert { rescuing { writer.write([Class.new.new]) }.message =~ /Can not find a Write Handler/ }

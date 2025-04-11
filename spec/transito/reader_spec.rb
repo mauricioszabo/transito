@@ -14,17 +14,17 @@
 
 require 'spec_helper'
 
-module Transit
+module Transito
   describe Reader do
     shared_examples "read without a block" do |type|
       it "reads a single top-level #{type} element" do
         input = {:this => [1,2,3,{:that => "the other"}]}
 
         io = StringIO.new('', 'w+')
-        writer = Transit::Writer.new(type, io)
+        writer = Transito::Writer.new(type, io)
         writer.write(input)
 
-        reader = Transit::Reader.new(type, StringIO.new(io.string))
+        reader = Transito::Reader.new(type, StringIO.new(io.string))
         assert { reader.read == input }
       end
     end
@@ -44,10 +44,10 @@ module Transit
         outputs = []
 
         io = StringIO.new('', 'w+')
-        writer = Transit::Writer.new(type, io)
+        writer = Transito::Writer.new(type, io)
         inputs.each {|i| writer.write(i)}
-        reader = Transit::Reader.new(type, StringIO.new(io.string))
-        if Transit::jruby?
+        reader = Transito::Reader.new(type, StringIO.new(io.string))
+        if Transito::jruby?
           # Ignore expected EOFException raised after the StringIO is exhausted
           reader.read {|val| outputs << val} rescue nil
         else
@@ -126,9 +126,9 @@ module Transit
         it 'supports complex hash values' do
           io = StringIO.new([
                              {"~#person"=>
-                               {"~:first_name" => "Transit","~:last_name" => "Ruby","~:birthdate" => "~D2014-01-02"}},
+                               {"~:first_name" => "Transito","~:last_name" => "Ruby","~:birthdate" => "~D2014-01-02"}},
                              {"^0"=>
-                               {"^1" => "Transit","^2" => "Ruby","^3" => "~D2014-01-03"}}].to_json)
+                               {"^1" => "Transito","^2" => "Ruby","^3" => "~D2014-01-03"}}].to_json)
 
           person_handler = Class.new do
             def from_rep(v)
@@ -142,8 +142,8 @@ module Transit
                               :handlers => {
                                 "person" => person_handler.new,
                                 "D"      => date_handler.new})
-          expected = [Person.new("Transit", "Ruby", Date.new(2014,1,2)),
-                      Person.new("Transit", "Ruby", Date.new(2014,1,3))]
+          expected = [Person.new("Transito", "Ruby", Date.new(2014,1,2)),
+                      Person.new("Transito", "Ruby", Date.new(2014,1,3))]
           assert { reader.read == expected }
         end
       end
@@ -152,7 +152,7 @@ module Transit
         it "delivers a UTC DateTime for a non-UTC date string" do
           io = StringIO.new(["~t2014-04-14T12:20:50.152-05:00"].to_json)
           reader = Reader.new(:json, io)
-          expect(Transit::DateTimeUtil.to_millis(reader.read.first)).to eq(Transit::DateTimeUtil.to_millis(DateTime.new(2014,4,14,17,20,50.152,"Z")))
+          expect(Transito::DateTimeUtil.to_millis(reader.read.first)).to eq(Transito::DateTimeUtil.to_millis(DateTime.new(2014,4,14,17,20,50.152,"Z")))
         end
       end
 

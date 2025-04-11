@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Transit
-  # @see Transit::WriteHandlers
+module Transito
+  # @see Transito::WriteHandlers
   module ReadHandlers
     class Default
       def from_rep(tag,val) TaggedValue.new(tag, val) end
@@ -56,7 +56,7 @@ module Transit
       def from_rep(v) v end
     end
     class SymbolHandler
-      def from_rep(v) Transit::Symbol.new(v) end
+      def from_rep(v) Transito::Symbol.new(v) end
     end
     class TimeStringHandler
       def from_rep(v) DateTime.iso8601(v) end

@@ -22,7 +22,7 @@ def round_trip(obj, type, opts={})
   obj_before = obj
 
   io = StringIO.new('', 'w+')
-  writer = Transit::Writer.new(type, io, :handlers => opts[:write_handlers])
+  writer = Transito::Writer.new(type, io, :handlers => opts[:write_handlers])
   writer.write(obj)
 
   # ensure that we don't modify the object being written
@@ -31,13 +31,13 @@ def round_trip(obj, type, opts={})
   else
     assert { obj == obj_before }
   end
-  reader = Transit::Reader.new(type, StringIO.new(io.string), :handlers => opts[:read_handlers])
+  reader = Transito::Reader.new(type, StringIO.new(io.string), :handlers => opts[:read_handlers])
   reader.read
 end
 
 def assert_equal_times(actual,expected)
   return false unless expected.is_a?(Date) || expected.is_a?(Time) || expected.is_a?(DateTime)
-  assert { Transit::DateTimeUtil.to_millis(actual) == Transit::DateTimeUtil.to_millis(expected) }
+  assert { Transito::DateTimeUtil.to_millis(actual) == Transito::DateTimeUtil.to_millis(expected) }
   assert { actual.zone == expected.zone }
 end
 
@@ -71,7 +71,7 @@ def round_trips(label, obj, type, opts={})
   end
 end
 
-module Transit
+module Transito
   PhoneNumber = Struct.new(:area, :prefix, :suffix)
   def PhoneNumber.parse(p)
     area, prefix, suffix = p.split(".")
@@ -126,7 +126,7 @@ module Transit
     round_trips("a uri (url)", Addressable::URI.parse("http://example.com"), type)
     round_trips("a uri (file)", Addressable::URI.parse("file:///path/to/file.txt"), type)
     round_trips("a bytearray", ByteArray.new(random_string(50)), type)
-    round_trips("a Transit::Symbol", Transit::Symbol.new(random_string), type)
+    round_trips("a Transito::Symbol", Transito::Symbol.new(random_string), type)
     round_trips("a hash w/ stringable keys", {"this" => "~hash", "1" => 2}, type)
     round_trips("a set", Set.new([1,2,3]), type)
     round_trips("a set of sets", Set.new([Set.new([1,2]), Set.new([3,4])]), type)
@@ -144,7 +144,7 @@ module Transit
                 :write_handlers => {Person => PersonHandler.new},
                 :read_handlers  => {"person" => PersonReadHandler.new})
     round_trips("a hash with simple values", {'a' => 1, 'b' => 2, 'name' => 'russ'}, type)
-    round_trips("a hash with Transit::Symbols", {Transit::Symbol.new("foo") => Transit::Symbol.new("bar")}, type)
+    round_trips("a hash with Transito::Symbols", {Transito::Symbol.new("foo") => Transito::Symbol.new("bar")}, type)
     round_trips("a hash with 53 bit ints",  {2**53-1 => 2**53-2}, type)
     round_trips("a hash with 54 bit ints",  {2**53   => 2**53+1}, type)
     round_trips("a map with composite keys", {{a: :b} => {c: :d}}, type)
@@ -158,15 +158,15 @@ module Transit
     round_trips("a ratio of big value", [{"~#ratio"=>["~n36893488147419103231","~n73786976294838206463"]}], type)
   end
 
-  describe "Transit using json" do
+  describe "Transito using json" do
     include_examples "round trips", :json
   end
 
-  describe "Transit using json_verbose" do
+  describe "Transito using json_verbose" do
     include_examples "round trips", :json_verbose
   end
 
-  describe "Transit using msgpack" do
+  describe "Transito using msgpack" do
     include_examples "round trips", :msgpack
   end
 end

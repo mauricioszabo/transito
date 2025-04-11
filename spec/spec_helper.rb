@@ -12,17 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-unless File.exist?('../transito-format/examples/0.8/simple')
+unless File.exist?('../transit-format/examples/0.8/simple')
   puts <<-MSG
 Before you can run the rspec examples, you need to install the
-the https://github.com/cognitect/transito-format repo in a sibling
+the https://github.com/cognitect/transit-format repo in a sibling
 directory, e.g.
 
     cd ..
-    git clone https://github.com/cognitect/transito-format
+    git clone https://github.com/cognitect/transit-format
 
 That repo contains exemplars used by transito-ruby's rspec examples
-(in ../transito-format/examples/0.8/simple), so then you can:
+(in ../transit-format/examples/0.8/simple), so then you can:
 
     cd transito-ruby
     rspec

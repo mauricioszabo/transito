@@ -28,7 +28,7 @@ import org.jruby.runtime.builtin.IRubyObject;
 import com.cognitect.transito.TransitFactory;
 import com.cognitect.transito.WriteHandler;
 
-@JRubyClass(name="Transit::Marshaler::MessagePack")
+@JRubyClass(name="Transito::Marshaler::MessagePack")
 public class MessagePack extends Base {
     private static final long serialVersionUID = -7367649057673037952L;
 
@@ -42,7 +42,7 @@ public class MessagePack extends Base {
    **/
     @JRubyMethod(name="new", meta=true, required=1, rest=true)
     public static IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject[] args) {
-        RubyClass rubyClass = (RubyClass)context.getRuntime().getClassFromPath("Transit::Marshaler::MessagePack");
+        RubyClass rubyClass = (RubyClass)context.getRuntime().getClassFromPath("Transito::Marshaler::MessagePack");
         MessagePack messagepack = (MessagePack)rubyClass.allocate();
         messagepack.callMethod(context, "initialize", args);
         messagepack.init(context, args);

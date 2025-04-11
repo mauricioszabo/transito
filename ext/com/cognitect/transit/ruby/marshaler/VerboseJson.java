@@ -28,7 +28,7 @@ import org.jruby.runtime.builtin.IRubyObject;
 import com.cognitect.transito.TransitFactory;
 import com.cognitect.transito.WriteHandler;
 
-@JRubyClass(name="Transit::Marshaler::VerboseJson")
+@JRubyClass(name="Transito::Marshaler::VerboseJson")
 public class VerboseJson extends Base {
     private static final long serialVersionUID = 7872087524091784518L;
 
@@ -42,7 +42,7 @@ public class VerboseJson extends Base {
     **/
     @JRubyMethod(name="new", meta=true, required=1, rest=true)
     public static IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject[] args) {
-        RubyClass rubyClass = (RubyClass)context.getRuntime().getClassFromPath("Transit::Marshaler::VerboseJson");
+        RubyClass rubyClass = (RubyClass)context.getRuntime().getClassFromPath("Transito::Marshaler::VerboseJson");
         VerboseJson verbosejson = (VerboseJson)rubyClass.allocate();
         verbosejson.callMethod(context, "initialize", args);
         verbosejson.init(context, args);

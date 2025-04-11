@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Transit
+module Transito
   # Converts a transito value to an instance of a type
   # @api private
   class Decoder

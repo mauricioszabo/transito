@@ -14,7 +14,7 @@
 
 require 'spec_helper'
 
-module Transit
+module Transito
   describe Decoder do
     def decode(o)
       Decoder.new.decode(o)

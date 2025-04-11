@@ -21,17 +21,17 @@ require 'spec_helper'
 TOP_DIR=File.dirname(File.dirname(File.dirname(__FILE__)))
 
 ARRAY_SIMPLE = [1, 2, 3]
-ARRAY_MIXED = [0, 1, 2.0, true, false, 'five', :six, Transit::Symbol.new(:seven), '~eight', nil]
+ARRAY_MIXED = [0, 1, 2.0, true, false, 'five', :six, Transito::Symbol.new(:seven), '~eight', nil]
 ARRAY_NESTED = [ARRAY_SIMPLE, ARRAY_MIXED]
 SMALL_STRINGS = ["","a","ab","abc","abcd","abcde","abcdef"]
 POWERS_OF_TWO = (0..65).map {|x| 2**x}
 INTERESTING_INTS = (POWERS_OF_TWO.map {|x| ints_centered_on(x, 2)}).flatten
 
 UUIDS = [
-  Transit::UUID.new('5a2cbea3-e8c6-428b-b525-21239370dd55'),
-  Transit::UUID.new('d1dc64fa-da79-444b-9fa4-d4412f427289'),
-  Transit::UUID.new('501a978e-3a3e-4060-b3be-1cf2bd4b1a38'),
-  Transit::UUID.new('b3ba141a-a776-48e4-9fae-a28ea8571f58')]
+  Transito::UUID.new('5a2cbea3-e8c6-428b-b525-21239370dd55'),
+  Transito::UUID.new('d1dc64fa-da79-444b-9fa4-d4412f427289'),
+  Transito::UUID.new('501a978e-3a3e-4060-b3be-1cf2bd4b1a38'),
+  Transito::UUID.new('b3ba141a-a776-48e4-9fae-a28ea8571f58')]
 
 URIS = [
   Addressable::URI.parse('http://example.com'),
@@ -39,10 +39,10 @@ URIS = [
   Addressable::URI.parse('file:///path/to/file.txt'),
   Addressable::URI.parse('http://www.詹姆斯.com/')]
 
-DATES = [-6106017600000, 0, 946728000000, 1396909037000].map {|x| Transit::DateTimeUtil.from_millis(x)}
+DATES = [-6106017600000, 0, 946728000000, 1396909037000].map {|x| Transito::DateTimeUtil.from_millis(x)}
 
 SYMBOLS = [:a, :ab ,:abc ,:abcd, :abcde, :a1, :b2, :c3, :a_b]
-TRANSIT_SYMBOLS = SYMBOLS.map {|x| Transit::Symbol.new(x)}
+TRANSIT_SYMBOLS = SYMBOLS.map {|x| Transito::Symbol.new(x)}
 
 SET_SIMPLE = Set.new(ARRAY_SIMPLE)
 SET_MIXED = Set.new(ARRAY_MIXED)
@@ -62,8 +62,8 @@ EXEMPLARS = [
   Exemplar.new('one', 1),
   Exemplar.new('one_string', 'hello'),
   Exemplar.new('one_keyword', :hello),
-  Exemplar.new('one_symbol',  Transit::Symbol.new('hello')),
-  Exemplar.new('one_date', DateTime.new(2000,1,1,12)), # Transit::DateTimeUtil.from_millis(946728000000)),
+  Exemplar.new('one_symbol',  Transito::Symbol.new('hello')),
+  Exemplar.new('one_date', DateTime.new(2000,1,1,12)), # Transito::DateTimeUtil.from_millis(946728000000)),
   Exemplar.new("vector_simple", ARRAY_SIMPLE),
   Exemplar.new("vector_empty", []),
   Exemplar.new("vector_mixed", ARRAY_MIXED),
@@ -100,20 +100,20 @@ EXEMPLARS = [
   Exemplar.new('map_numeric_keys',  {1=>"one", 2=>"two"}),
   Exemplar.new('map_vector_keys', {[1,1] => 'one', [2, 2] => 'two'}),
   Exemplar.new('map_10_items', hash_of_size(10)),
-  Exemplar.new("maps_two_char_sym_keys", [{Transit::Symbol.new(:aa)=>1, Transit::Symbol.new(:bb)=>2},
-                                          {Transit::Symbol.new(:aa)=>3, Transit::Symbol.new(:bb)=>4},
-                                          {Transit::Symbol.new(:aa)=>5, Transit::Symbol.new(:bb)=>6}]),
-  Exemplar.new("maps_three_char_sym_keys", [{Transit::Symbol.new(:aaa)=>1, Transit::Symbol.new(:bbb)=>2},
-                                            {Transit::Symbol.new(:aaa)=>3, Transit::Symbol.new(:bbb)=>4},
-                                            {Transit::Symbol.new(:aaa)=>5, Transit::Symbol.new(:bbb)=>6}]),
-  Exemplar.new("maps_four_char_sym_keys", [{Transit::Symbol.new(:aaaa)=>1, Transit::Symbol.new(:bbbb)=>2},
-                                           {Transit::Symbol.new(:aaaa)=>3, Transit::Symbol.new(:bbbb)=>4},
-                                           {Transit::Symbol.new(:aaaa)=>5, Transit::Symbol.new(:bbbb)=>6}]),
+  Exemplar.new("maps_two_char_sym_keys", [{Transito::Symbol.new(:aa)=>1, Transito::Symbol.new(:bb)=>2},
+                                          {Transito::Symbol.new(:aa)=>3, Transito::Symbol.new(:bb)=>4},
+                                          {Transito::Symbol.new(:aa)=>5, Transito::Symbol.new(:bb)=>6}]),
+  Exemplar.new("maps_three_char_sym_keys", [{Transito::Symbol.new(:aaa)=>1, Transito::Symbol.new(:bbb)=>2},
+                                            {Transito::Symbol.new(:aaa)=>3, Transito::Symbol.new(:bbb)=>4},
+                                            {Transito::Symbol.new(:aaa)=>5, Transito::Symbol.new(:bbb)=>6}]),
+  Exemplar.new("maps_four_char_sym_keys", [{Transito::Symbol.new(:aaaa)=>1, Transito::Symbol.new(:bbbb)=>2},
+                                           {Transito::Symbol.new(:aaaa)=>3, Transito::Symbol.new(:bbbb)=>4},
+                                           {Transito::Symbol.new(:aaaa)=>5, Transito::Symbol.new(:bbbb)=>6}]),
   Exemplar.new("maps_two_char_string_keys", [{'aa'=>1, 'bb'=>2}, {'aa'=>3, 'bb'=>4}, {'aa'=>5, 'bb'=>6}]),
   Exemplar.new("maps_three_char_string_keys", [{'aaa'=>1, 'bbb'=>2}, {'aaa'=>3, 'bbb'=>4}, {'aaa'=>5, 'bbb'=>6}]),
   Exemplar.new("maps_four_char_string_keys", [{'aaaa'=>1, 'bbbb'=>2}, {'aaaa'=>3, 'bbbb'=>4}, {'aaaa'=>5, 'bbbb'=>6}]),
   Exemplar.new("maps_unrecognized_keys",
-               [Transit::TaggedValue.new("abcde", :anything), Transit::TaggedValue.new("fghij", :"anything-else")]),
+               [Transito::TaggedValue.new("abcde", :anything), Transito::TaggedValue.new("fghij", :"anything-else")]),
   Exemplar.new("map_unrecognized_vals", {key: "~Unrecognized"}),
   Exemplar.new("vector_unrecognized_vals", ["~Unrecognized"]),
   Exemplar.new("vector_1935_keywords_repeated_twice", array_of_symbols(1935, 3870)),
@@ -127,17 +127,17 @@ EXEMPLARS = [
 end
 
 def verify_exemplar(exemplar, type, suffix)
-  path = "../transito-format/examples/0.8/simple/#{exemplar.name}#{suffix}"
+  path = "../transit-format/examples/0.8/simple/#{exemplar.name}#{suffix}"
   it "reads what we expect from #{path}" do
     raise "Can't open #{path}" unless File.exist?(path)
     File.open(path) do |io|
-      actual_value = Transit::Reader.new(type, io).read
+      actual_value = Transito::Reader.new(type, io).read
       assert { exemplar.expected_value == actual_value }
     end
   end
 end
 
-module Transit
+module Transito
   shared_examples "exemplars" do |type, suffix|
     EXEMPLARS.each {|ex| verify_exemplar(ex, type, suffix)}
   end

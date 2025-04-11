@@ -48,7 +48,7 @@ public abstract class Base extends RubyObject {
     }
     
     protected static IRubyObject newDecoder(ThreadContext context, IRubyObject opts) {
-        RubyClass decoderClass = (RubyClass) context.getRuntime().getClassFromPath("Transit::Decoder");
+        RubyClass decoderClass = (RubyClass) context.getRuntime().getClassFromPath("Transito::Decoder");
         return decoderClass.callMethod(context, "new", opts);
     }
 
@@ -77,7 +77,7 @@ public abstract class Base extends RubyObject {
         }
         // replaces TimeStringHandler to cover JRuby's bug in DateTime.iso8601() method
         if (((RubyObject)handlers.get("t")).getMetaClass().getName().
-                equals("Transit::ReadHandlers::TimeStringHandler")) {
+                equals("Transito::ReadHandlers::TimeStringHandler")) {
             javaHandlers.put("t", new ReadHandler<IRubyObject, Object>() {
                 public IRubyObject fromRep(Object o) {
                     RubyClass klazz = (RubyClass) context.getRuntime().getClassFromPath("DateTime");

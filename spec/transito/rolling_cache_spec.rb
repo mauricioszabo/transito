@@ -14,7 +14,7 @@
 
 require 'spec_helper'
 
-module Transit
+module Transito
   describe RollingCache do
     describe 'writing' do
       it 'returns the value the first time it sees it' do
@@ -78,7 +78,7 @@ module Transit
     describe ".cache_key?" do
       it 'special cases map-as-array key as false' do
         cache = RollingCache.new
-        assert { !cache.cache_key?(Transit::MAP_AS_ARRAY) }
+        assert { !cache.cache_key?(Transito::MAP_AS_ARRAY) }
       end
     end
 

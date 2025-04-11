@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Transit
+module Transito
   # WriteHandlers convert instances of Ruby types to their
-  # corresponding Transit semantic types, and ReadHandlers read
+  # corresponding Transito semantic types, and ReadHandlers read
   # convert transito values back into instances of Ruby
   # types. transito-ruby ships with default sets of WriteHandlers for
   # each of the Ruby types that map naturally to transito types, and
@@ -25,7 +25,7 @@ module Transit
   # ## Custom handlers
   #
   # For example, Ruby has Date, Time, and DateTime, each with their
-  # own semantics. Transit has an instance type, which does not
+  # own semantics. Transito has an instance type, which does not
   # differentiate between Date and Time, so transito-ruby writes Dates,
   # Times, and DateTimes as transito instances, and reads transito
   # instances as DateTimes. If your application cares that Dates are
@@ -80,19 +80,19 @@ module Transit
   #
   # ```ruby
   # io = StringIO.new('','w+')
-  # writer = Transit::Writer.new(:json, io, :handlers => {Date => DateWriteHandler.new})
+  # writer = Transito::Writer.new(:json, io, :handlers => {Date => DateWriteHandler.new})
   # writer.write(Date.new(2014,7,22))
   # io.string
   # # => "[\"~#'\",\"~D2014-07-22\"]\n"
   #
-  # reader = Transit::Reader.new(:json, StringIO.new(io.string), :handlers => {"D" => DateReadHandler.new})
+  # reader = Transito::Reader.new(:json, StringIO.new(io.string), :handlers => {"D" => DateReadHandler.new})
   # reader.read
   # # => #<Date: 2014-07-22 ((2456861j,0s,0n),+0s,2299161j)>
   # ```
   #
   # ## Custom types and representations
   #
-  # Transit supports scalar and structured representations. The Date
+  # Transito supports scalar and structured representations. The Date
   # example, above, demonstrates a String representation (scalar) of a
   # Date. This works well because it is a natural representation, but
   # it might not be a good solution for a more complex type, e.g. a
@@ -119,19 +119,19 @@ module Transit
   # end
   #
   # io = StringIO.new('','w+')
-  # writer = Transit::Writer.new(:json_verbose, io, :handlers => {Point => PointWriteHandler.new})
+  # writer = Transito::Writer.new(:json_verbose, io, :handlers => {Point => PointWriteHandler.new})
   # writer.write(Point.new(37,42))
   # io.string
   # # => "{\"~#point\":[37,42]}\n"
   #
-  # reader = Transit::Reader.new(:json, StringIO.new(io.string),
+  # reader = Transito::Reader.new(:json, StringIO.new(io.string),
   #   :handlers => {"point" => PointReadHandler.new})
   # reader.read
   # # => #<struct Point x=37, y=42>
   # ```
   #
   # Note that Date used a one-character tag, "D", whereas Point uses a
-  # multi-character tag, "point". Transit expects one-character tags
+  # multi-character tag, "point". Transito expects one-character tags
   # to have scalar representations (string, integer, float, boolean,
   # etc) and multi-character tags to have structural representations,
   # i.e. maps (Ruby Hashes) or arrays.
@@ -139,7 +139,7 @@ module Transit
   # ## Verbose write handlers
   #
   # Write handlers can, optionally, support the JSON-VERBOSE format by
-  # providing a verbose write handler. Transit uses this for instances
+  # providing a verbose write handler. Transito uses this for instances
   # (Ruby Dates, Times, DateTimes) to differentiate between the more
   # efficient format using an int representing milliseconds since 1970
   # in JSON mode from the more readable format using a String in
@@ -149,13 +149,13 @@ module Transit
   # inst = DateTime.new(1985,04,12,23,20,50,"0")
   #
   # io = StringIO.new('','w+')
-  # writer = Transit::Writer.new(:json, io)
+  # writer = Transito::Writer.new(:json, io)
   # writer.write(inst)
   # io.string
   # #=> "[\"~#'\",\"~m482196050000\"]\n"
   #
   # io = StringIO.new('','w+')
-  # writer = Transit::Writer.new(:json_verbose, io)
+  # writer = Transito::Writer.new(:json_verbose, io)
   # writer.write(inst)
   # io.string
   # #=> "{\"~#'\":\"~t1985-04-12T23:20:50.000Z\"}\n"
@@ -185,13 +185,13 @@ module Transit
   # e = Element.new(3, "Lithium")
   #
   # io = StringIO.new('','w+')
-  # writer = Transit::Writer.new(:json, io, :handlers => write_handlers)
+  # writer = Transito::Writer.new(:json, io, :handlers => write_handlers)
   # writer.write(e)
   # io.string
   # # => "[\"~#el\",3]\n"
   #
   # io = StringIO.new('','w+')
-  # writer = Transit::Writer.new(:json_verbose, io, :handlers => write_handlers)
+  # writer = Transito::Writer.new(:json_verbose, io, :handlers => write_handlers)
   # writer.write(e)
   # io.string
   # # => "{\"~#el\":\"Lithium\"}\n"
@@ -207,9 +207,9 @@ module Transit
     end
 
     class KeywordHandler
-      def tag(_) ":" end
-      def rep(s) s.to_s end
-      def string_rep(s) rep(s) end
+      def tag(_) = ":"
+      def rep(s) = s.to_s.sub("__", "/")
+      def string_rep(s) = rep(s)
     end
 
     class StringHandler
@@ -306,7 +306,7 @@ module Transit
       def tag(_) "t" end
       def rep(t)
         # .getutc because we don't want to modify t
-        t.getutc.strftime(Transit::TIME_FORMAT)
+        t.getutc.strftime(Transito::TIME_FORMAT)
       end
       def string_rep(t) rep(t) end
     end
@@ -314,7 +314,7 @@ module Transit
     class VerboseDateTimeHandler < VerboseTimeHandler
       def rep(t)
         # .utc because to_time already creates a new object
-        t.to_time.utc.strftime(Transit::TIME_FORMAT)
+        t.to_time.utc.strftime(Transito::TIME_FORMAT)
       end
     end
 
@@ -323,7 +323,7 @@ module Transit
         # to_datetime because DateTime's strftime is faster
         # thank Time's, and millis are 000 so it doesn't matter
         # if we truncate or round.
-        d.to_datetime.strftime(Transit::TIME_FORMAT)
+        d.to_datetime.strftime(Transito::TIME_FORMAT)
       end
     end
 
@@ -353,7 +353,7 @@ module Transit
 
     class ByteArrayHandler
       def tag(_) "b" end
-      if Transit::jruby?
+      if Transito::jruby?
         def rep(b)
           b.value.to_java_bytes
         end
@@ -437,7 +437,7 @@ module Transit
       URI              => UriHandler.new,
       Addressable::URI => AddressableUriHandler.new,
       ByteArray        => ByteArrayHandler.new,
-      Transit::Symbol  => TransitSymbolHandler.new,
+      Transito::Symbol  => TransitSymbolHandler.new,
       Array            => ArrayHandler.new,
       Hash             => MapHandler.new,
       Set              => SetHandler.new,

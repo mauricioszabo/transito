@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Transit
-  # Transit::Reader converts incoming transito data into appropriate
+module Transito
+  # Transito::Reader converts incoming transito data into appropriate
   # values/objects in Ruby.
-  # @see https://github.com/cognitect/transito-format
+  # @see https://github.com/cognitect/transit-format
   class Reader
     extend Forwardable
 
@@ -28,10 +28,10 @@ module Transit
     #   Without a block, returns a single object.
     #
     #   @example
-    #     reader = Transit::Reader.new(:json, io)
+    #     reader = Transito::Reader.new(:json, io)
     #     reader.read {|obj| do_something_with(obj)}
     #
-    #     reader = Transit::Reader.new(:json, io)
+    #     reader = Transito::Reader.new(:json, io)
     #     obj = reader.read
     def_delegators :@reader, :read
 
@@ -46,13 +46,13 @@ module Transit
     #
     # @example
     #
-    #   json_reader                 = Transit::Reader.new(:json, io)
+    #   json_reader                 = Transito::Reader.new(:json, io)
     #   # ^^ reads both :json and :json_verbose formats ^^
-    #   msgpack_writer              = Transit::Reader.new(:msgpack, io)
-    #   writer_with_custom_handlers = Transit::Reader.new(:json, io,
+    #   msgpack_writer              = Transito::Reader.new(:msgpack, io)
+    #   writer_with_custom_handlers = Transito::Reader.new(:json, io,
     #     :handlers => {"point" => PointReadHandler})
     #
-    # @see Transit::ReadHandlers
+    # @see Transito::ReadHandlers
     def initialize(format, io, opts={})
       @reader = case format
                 when :json, :json_verbose

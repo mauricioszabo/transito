@@ -14,10 +14,10 @@
 
 require 'oj'
 
-module Transit
+module Transito
   module Marshaler
     class BaseJson
-      include Transit::Marshaler::Base
+      include Transito::Marshaler::Base
 
       def initialize(io, opts)
         @oj = Oj::StreamWriter.new(io,opts.delete(:oj_opts) || {})
@@ -84,7 +84,7 @@ module Transit
 
     # @api private
     class VerboseJson < BaseJson
-      include Transit::Marshaler::VerboseHandlers
+      include Transito::Marshaler::VerboseHandlers
 
       def emit_string(prefix, tag, value, as_map_key, cache)
         emit_value("#{prefix}#{tag}#{value}", as_map_key)

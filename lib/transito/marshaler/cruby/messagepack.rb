@@ -14,10 +14,10 @@
 
 require 'msgpack'
 
-module Transit
+module Transito
   module Marshaler
     class MessagePack
-      include Transit::Marshaler::Base
+      include Transito::Marshaler::Base
 
       def initialize(io, opts)
         @io = io

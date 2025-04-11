@@ -12,12 +12,12 @@ require 'oj'
 
 def read_transito(data)
   io = StringIO.new(data, 'r+')
-  Transit::Reader.new(:json, io).read
+  Transito::Reader.new(:json, io).read
 end
 
 def write_transito(data)
   io = StringIO.new('', 'w+')
-  Transit::Writer.new(:json, io).write(data)
+  Transito::Writer.new(:json, io).write(data)
 end
 
 def read_json(data)
@@ -32,7 +32,7 @@ n = 100
 include Benchmark
 puts "**************************"
 puts "transito-json"
-open("../transito-format/examples/0.8/example.json", 'r') {|f| data = f.read}
+open("../transit-format/examples/0.8/example.json", 'r') {|f| data = f.read}
 Benchmark.benchmark(CAPTION, 20, FORMAT, "avg read transito:", "avg read oj:", "avg write transito:") do |bm|
   t = bm.report("read transito (#{n} x):")  { n.times { read_transito(data) } }
   y = bm.report("read oj (#{n} x):")       { n.times { read_json(data) } }
@@ -42,7 +42,7 @@ end
 
 puts "**************************"
 puts "transito-json-verbose"
-open("../transito-format/examples/0.8/example.verbose.json", 'r') {|f| data = f.read}
+open("../transit-format/examples/0.8/example.verbose.json", 'r') {|f| data = f.read}
 Benchmark.benchmark(CAPTION, 20, FORMAT, "avg read transito:", "avg read oj:", "avg write transito:") do |bm|
   t = bm.report("read transito (#{n} x):")  { n.times { read_transito(data) } }
   y = bm.report("read oj (#{n} x):")       { n.times { read_json(data) } }

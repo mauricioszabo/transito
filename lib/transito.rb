@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-# WriteHandlers convert instances of Ruby types to their corresponding Transit
+# WriteHandlers convert instances of Ruby types to their corresponding Transito
 # semantic types, and ReadHandlers read convert transito values back into instances
 # of Ruby types. transito-ruby ships with default sets of WriteHandlers for each
 # of the Ruby types that map naturally to transito types, and ReadHandlers for each
@@ -22,7 +22,7 @@
 # override the built-in handlers.
 #
 # For example, Ruby has Date, Time, and DateTime, each with their
-# own semantics. Transit has an instance type, which does not
+# own semantics. Transito has an instance type, which does not
 # differentiate between Date and Time, so transito-ruby writes Dates,
 # Times, and DateTimes as transito instances, and reads transito
 # instances as DateTimes. If your application cares that Dates are
@@ -43,16 +43,16 @@
 # end
 #
 # io = StringIO.new('','w+')
-# writer = Transit::Writer.new(:json, io, :handlers => {Date => DateWriteHandler.new})
+# writer = Transito::Writer.new(:json, io, :handlers => {Date => DateWriteHandler.new})
 # writer.write(Date.new(2014,7,22))
 # io.string
 # # => "[\"~#'\",\"~D2014-07-22\"]\n"
 #
-# reader = Transit::Reader.new(:json, StringIO.new(io.string), :handlers => {"D" => DateReadHandler.new})
+# reader = Transito::Reader.new(:json, StringIO.new(io.string), :handlers => {"D" => DateReadHandler.new})
 # reader.read
 # # => #<Date: 2014-07-22 ((2456861j,0s,0n),+0s,2299161j)>
 # ```
-module Transit
+module Transito
   ESC = "~"
   SUB = "^"
   RES = "`"
@@ -81,17 +81,17 @@ require 'bigdecimal'
 require 'securerandom'
 require 'forwardable'
 require 'addressable/uri'
-require 'transito/date_time_util'
-require 'transito/transit_types'
-require 'transito/rolling_cache'
-require 'transito/write_handlers'
-require 'transito/read_handlers'
-require 'transito/marshaler/base'
-require 'transito/writer'
-require 'transito/decoder'
-require 'transito/reader'
+require_relative 'transito/date_time_util'
+require_relative 'transito/transit_types'
+require_relative 'transito/rolling_cache'
+require_relative 'transito/write_handlers'
+require_relative 'transito/read_handlers'
+require_relative 'transito/marshaler/base'
+require_relative 'transito/writer'
+require_relative 'transito/decoder'
+require_relative 'transito/reader'
 
-if Transit::jruby?
+if Transito::jruby?
   require 'lock_jar'
   LockJar.lock(File.join(File.dirname(__FILE__), "..", "Jarfile"))
   LockJar.load
@@ -101,8 +101,8 @@ if Transit::jruby?
   require 'transito/marshaler/jruby/json'
   require 'transito/marshaler/jruby/messagepack'
 else
-  require 'transito/marshaler/cruby/json'
-  require 'transito/marshaler/cruby/messagepack'
-  require 'transito/unmarshaler/cruby/json'
-  require 'transito/unmarshaler/cruby/messagepack'
+  require_relative 'transito/marshaler/cruby/json'
+  require_relative 'transito/marshaler/cruby/messagepack'
+  require_relative 'transito/unmarshaler/cruby/json'
+  require_relative 'transito/unmarshaler/cruby/messagepack'
 end

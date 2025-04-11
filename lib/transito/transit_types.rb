@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Transit
+module Transito
   class Wrapper
     extend Forwardable
 
@@ -35,7 +35,7 @@ module Transit
   end
 
   # Represents a transito symbol extension type.
-  # @see https://github.com/cognitect/transito-format
+  # @see https://github.com/cognitect/transit-format
   class Symbol < Wrapper
     def initialize(sym)
       super sym.to_sym
@@ -57,7 +57,7 @@ module Transit
   end
 
   # Represents a transito byte array extension type.
-  # @see https://github.com/cognitect/transito-format
+  # @see https://github.com/cognitect/transit-format
   class ByteArray < Wrapper
     def self.from_base64(data)
       new(Base64.decode64(data))
@@ -80,7 +80,7 @@ module Transit
   end
 
   # Represents a transito UUID extension type.
-  # @see https://github.com/cognitect/transito-format
+  # @see https://github.com/cognitect/transit-format
   class UUID
     def self.random
       new
@@ -166,7 +166,7 @@ module Transit
   end
 
   # Represents a transito hypermedia link extension type.
-  # @see https://github.com/cognitect/transito-format
+  # @see https://github.com/cognitect/transit-format
   # @see http://amundsen.com/media-types/collection/format/#arrays-links
   class Link
     KEYS          = ["href", "rel", "name", "render", "prompt"]
@@ -238,7 +238,7 @@ module Transit
   # representation to use a transito ground type using a rep for which
   # there is no registered handler (e.g., an iterable for the
   # representation of an array).
-  # @see https://github.com/cognitect/transito-format
+  # @see https://github.com/cognitect/transit-format
   class TaggedValue
     attr_reader :tag, :rep
     def initialize(tag, rep)

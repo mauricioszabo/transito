@@ -14,15 +14,15 @@
 
 require 'msgpack'
 
-module Transit
+module Transito
   module Unmarshaler
-    # Transit::Reader::MessagePackUnmarshaler is responsible to read data on CRuby
-    # @see https://github.com/cognitect/transito-format
+    # Transito::Reader::MessagePackUnmarshaler is responsible to read data on CRuby
+    # @see https://github.com/cognitect/transit-format
 
     # @api private
     class MessagePack
       def initialize(io, opts)
-        @decoder = Transit::Decoder.new(opts)
+        @decoder = Transito::Decoder.new(opts)
         @unpacker = ::MessagePack::Unpacker.new(io)
       end
 

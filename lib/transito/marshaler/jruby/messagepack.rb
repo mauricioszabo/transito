@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Transit
+module Transito
   module Marshaler
     class MessagePack
-      include Transit::Marshaler::Base
+      include Transito::Marshaler::Base
 
       def initialize(io, opts)
         parse_options(opts)

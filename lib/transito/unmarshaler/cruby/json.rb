@@ -14,10 +14,10 @@
 
 require 'oj'
 
-module Transit
+module Transito
   module Unmarshaler
-    # Transit::Reader::MessagePackUnmarshaler is responsible to read data on CRuby
-    # @see https://github.com/cognitect/transito-format
+    # Transito::Reader::MessagePackUnmarshaler is responsible to read data on CRuby
+    # @see https://github.com/cognitect/transit-format
 
     # @api private
     class Json
@@ -37,7 +37,7 @@ module Transit
 
       def initialize(io, opts)
         @io = io
-        @decoder = Transit::Decoder.new(opts)
+        @decoder = Transito::Decoder.new(opts)
         @parse_handler = ParseHandler.new
       end
 

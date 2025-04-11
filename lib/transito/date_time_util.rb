@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Transit
+module Transito
   # @api private
   module DateTimeUtil
     def to_millis(v)

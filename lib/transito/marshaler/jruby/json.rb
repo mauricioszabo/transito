@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Transit
+module Transito
   module Marshaler
 
     # @api private
@@ -24,15 +24,15 @@ module Transit
 
     # @api private
     class Json
-      include Transit::Marshaler::Base
-      include Transit::Marshaler::JsonBase
+      include Transito::Marshaler::Base
+      include Transito::Marshaler::JsonBase
     end
 
     # @api private
     class VerboseJson
-      include Transit::Marshaler::Base
-      include Transit::Marshaler::JsonBase
-      include Transit::Marshaler::VerboseHandlers
+      include Transito::Marshaler::Base
+      include Transito::Marshaler::JsonBase
+      include Transito::Marshaler::VerboseHandlers
     end
   end
 end

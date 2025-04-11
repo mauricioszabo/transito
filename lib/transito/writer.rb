@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Transit
-  # Transit::Writer marshals Ruby objects as transito values to an output stream.
-  # @see https://github.com/cognitect/transito-format
+module Transito
+  # Transito::Writer marshals Ruby objects as transito values to an output stream.
+  # @see https://github.com/cognitect/transit-format
   class Writer
 
     # @param [Symbol] format required :json, :json_verbose, or :msgpack
@@ -29,13 +29,13 @@ module Transit
     # with its type.
     #
     # @example
-    #   json_writer                 = Transit::Writer.new(:json, io)
-    #   json_verbose_writer         = Transit::Writer.new(:json_verbose, io)
-    #   msgpack_writer              = Transit::Writer.new(:msgpack, io)
-    #   writer_with_custom_handlers = Transit::Writer.new(:json, io,
+    #   json_writer                 = Transito::Writer.new(:json, io)
+    #   json_verbose_writer         = Transito::Writer.new(:json_verbose, io)
+    #   msgpack_writer              = Transito::Writer.new(:msgpack, io)
+    #   writer_with_custom_handlers = Transito::Writer.new(:json, io,
     #     :handlers => {Point => PointWriteHandler})
     #
-    # @see Transit::WriteHandlers
+    # @see Transito::WriteHandlers
     def initialize(format, io, opts={})
       @marshaler = case format
                    when :json
@@ -53,9 +53,9 @@ module Transit
     #
     # @param obj the value to write
     # @example
-    #   writer = Transit::Writer.new(:json, io)
+    #   writer = Transito::Writer.new(:json, io)
     #   writer.write(Date.new(2014,7,22))
-    if Transit::jruby?
+    if Transito::jruby?
       def write(obj)
         @marshaler.write(obj)
       end
