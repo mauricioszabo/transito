@@ -34,8 +34,8 @@ module Transit
     end
   end
 
-  # Represents a transit symbol extension type.
-  # @see https://github.com/cognitect/transit-format
+  # Represents a transito symbol extension type.
+  # @see https://github.com/cognitect/transito-format
   class Symbol < Wrapper
     def initialize(sym)
       super sym.to_sym
@@ -56,8 +56,8 @@ module Transit
     end
   end
 
-  # Represents a transit byte array extension type.
-  # @see https://github.com/cognitect/transit-format
+  # Represents a transito byte array extension type.
+  # @see https://github.com/cognitect/transito-format
   class ByteArray < Wrapper
     def self.from_base64(data)
       new(Base64.decode64(data))
@@ -79,8 +79,8 @@ module Transit
     end
   end
 
-  # Represents a transit UUID extension type.
-  # @see https://github.com/cognitect/transit-format
+  # Represents a transito UUID extension type.
+  # @see https://github.com/cognitect/transito-format
   class UUID
     def self.random
       new
@@ -165,8 +165,8 @@ module Transit
     end
   end
 
-  # Represents a transit hypermedia link extension type.
-  # @see https://github.com/cognitect/transit-format
+  # Represents a transito hypermedia link extension type.
+  # @see https://github.com/cognitect/transito-format
   # @see http://amundsen.com/media-types/collection/format/#arrays-links
   class Link
     KEYS          = ["href", "rel", "name", "render", "prompt"]
@@ -232,13 +232,13 @@ module Transit
     end
   end
 
-  # Represents a transit tag and value. Returned by default when a
+  # Represents a transito tag and value. Returned by default when a
   # reader encounters a tag for which there is no registered
   # handler. Can also be used in a custom write handler to force
-  # representation to use a transit ground type using a rep for which
+  # representation to use a transito ground type using a rep for which
   # there is no registered handler (e.g., an iterable for the
   # representation of an array).
-  # @see https://github.com/cognitect/transit-format
+  # @see https://github.com/cognitect/transito-format
   class TaggedValue
     attr_reader :tag, :rep
     def initialize(tag, rep)

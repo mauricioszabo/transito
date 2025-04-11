@@ -20,7 +20,7 @@ module Transit
     let(:io) { StringIO.new('', 'w+') }
     let(:writer) { Writer.new(:json_verbose, io) }
 
-    describe "marshaling transit types" do
+    describe "marshaling transito types" do
       def self.bytes
         @bytes ||= SecureRandom.random_bytes
       end

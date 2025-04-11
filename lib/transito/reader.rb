@@ -13,14 +13,14 @@
 # limitations under the License.
 
 module Transit
-  # Transit::Reader converts incoming transit data into appropriate
+  # Transit::Reader converts incoming transito data into appropriate
   # values/objects in Ruby.
-  # @see https://github.com/cognitect/transit-format
+  # @see https://github.com/cognitect/transito-format
   class Reader
     extend Forwardable
 
     # @!method read
-    #   Reads transit values from an IO (file, stream, etc), and
+    #   Reads transito values from an IO (file, stream, etc), and
     #   converts each one to the appropriate Ruby object.
     #
     #   With a block, yields each object to the block as it is processed.

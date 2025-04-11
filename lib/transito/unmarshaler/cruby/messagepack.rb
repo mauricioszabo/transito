@@ -12,43 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'oj'
+require 'msgpack'
 
 module Transit
   module Unmarshaler
     # Transit::Reader::MessagePackUnmarshaler is responsible to read data on CRuby
-    # @see https://github.com/cognitect/transit-format
+    # @see https://github.com/cognitect/transito-format
 
     # @api private
-    class Json
-      class ParseHandler
-        def each(&block) @yield_v = block end
-        def add_value(v) @yield_v[v] if @yield_v end
-
-        def hash_start()      {} end
-        def hash_set(h,k,v)   h.store(k,v) end
-        def array_start()     [] end
-        def array_append(a,v) a << v end
-
-        def error(message, line, column)
-          raise Exception.new(message, line, column)
-        end
-      end
-
+    class MessagePack
       def initialize(io, opts)
-        @io = io
         @decoder = Transit::Decoder.new(opts)
-        @parse_handler = ParseHandler.new
+        @unpacker = ::MessagePack::Unpacker.new(io)
       end
 
       # @see Reader#read
       def read
         if block_given?
-          @parse_handler.each {|v| yield @decoder.decode(v)}
+          @unpacker.each {|v| yield @decoder.decode(v)}
         else
-          @parse_handler.each {|v| return @decoder.decode(v)}
+          @decoder.decode(@unpacker.read)
         end
-        Oj.sc_parse(@parse_handler, @io) {|_stack|}
       end
     end
   end

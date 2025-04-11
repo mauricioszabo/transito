@@ -15,10 +15,10 @@
 module Transit
   # WriteHandlers convert instances of Ruby types to their
   # corresponding Transit semantic types, and ReadHandlers read
-  # convert transit values back into instances of Ruby
-  # types. transit-ruby ships with default sets of WriteHandlers for
-  # each of the Ruby types that map naturally to transit types, and
-  # ReadHandlers for each transit type. For the common case, the
+  # convert transito values back into instances of Ruby
+  # types. transito-ruby ships with default sets of WriteHandlers for
+  # each of the Ruby types that map naturally to transito types, and
+  # ReadHandlers for each transito type. For the common case, the
   # built-in handlers will suffice, but you can add your own extension
   # types and/or override the built-in handlers.
   #
@@ -26,8 +26,8 @@ module Transit
   #
   # For example, Ruby has Date, Time, and DateTime, each with their
   # own semantics. Transit has an instance type, which does not
-  # differentiate between Date and Time, so transit-ruby writes Dates,
-  # Times, and DateTimes as transit instances, and reads transit
+  # differentiate between Date and Time, so transito-ruby writes Dates,
+  # Times, and DateTimes as transito instances, and reads transito
   # instances as DateTimes. If your application cares that Dates are
   # different from DateTimes, you could register custom write and read
   # handlers, overriding the built-in DateHandler and adding a new
@@ -46,7 +46,7 @@ module Transit
   # end
   # ```
   #
-  # <tt>tag</tt> returns the tag used to identify the transit type
+  # <tt>tag</tt> returns the tag used to identify the transito type
   # (built-in or extension). It accepts the object being written,
   # which allows the handler to return different tags for different
   # semantics, e.g. the built-in IntHandler, which returns the tag "i"
@@ -197,7 +197,7 @@ module Transit
   # # => "{\"~#el\":\"Lithium\"}\n"
   # ```
   #
-  # Note that you register the same handler collection; transit-ruby takes care of
+  # Note that you register the same handler collection; transito-ruby takes care of
   # asking for the verbose_handler for the :json_verbose format.
   module WriteHandlers
     class NilHandler

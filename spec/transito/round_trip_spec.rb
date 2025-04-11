@@ -154,7 +154,7 @@ module Transit
 
     round_trips("a nested structure (map on top)", {a: [1, [{b: "~c"}]]}, type)
     round_trips("a nested structure (array on top)", [37, {a: [1, [{b: "~c"}]]}], type)
-    round_trips("a map that looks like transit data", [{"~#set"=>[1,2,3]},{"~#set"=>[4,5,6]}], type)
+    round_trips("a map that looks like transito data", [{"~#set"=>[1,2,3]},{"~#set"=>[4,5,6]}], type)
     round_trips("a ratio of big value", [{"~#ratio"=>["~n36893488147419103231","~n73786976294838206463"]}], type)
   end
 

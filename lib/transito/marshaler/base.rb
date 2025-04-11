@@ -13,8 +13,8 @@
 # limitations under the License.
 
 module Transit
-  # Transit::Writer marshals Ruby objects as transit values to an output stream.
-  # @see https://github.com/cognitect/transit-format
+  # Transit::Writer marshals Ruby objects as transito values to an output stream.
+  # @see https://github.com/cognitect/transito-format
   module Marshaler
 
     HANDLER_CACHE = {}

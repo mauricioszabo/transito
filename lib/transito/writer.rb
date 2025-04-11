@@ -13,8 +13,8 @@
 # limitations under the License.
 
 module Transit
-  # Transit::Writer marshals Ruby objects as transit values to an output stream.
-  # @see https://github.com/cognitect/transit-format
+  # Transit::Writer marshals Ruby objects as transito values to an output stream.
+  # @see https://github.com/cognitect/transito-format
   class Writer
 
     # @param [Symbol] format required :json, :json_verbose, or :msgpack
@@ -48,7 +48,7 @@ module Transit
                    end
     end
 
-    # Converts a Ruby object to a transit value and writes it to this
+    # Converts a Ruby object to a transito value and writes it to this
     # Writer's output stream.
     #
     # @param obj the value to write

@@ -14,17 +14,17 @@
 
 
 # WriteHandlers convert instances of Ruby types to their corresponding Transit
-# semantic types, and ReadHandlers read convert transit values back into instances
-# of Ruby types. transit-ruby ships with default sets of WriteHandlers for each
-# of the Ruby types that map naturally to transit types, and ReadHandlers for each
-# transit type. For the common case, the
+# semantic types, and ReadHandlers read convert transito values back into instances
+# of Ruby types. transito-ruby ships with default sets of WriteHandlers for each
+# of the Ruby types that map naturally to transito types, and ReadHandlers for each
+# transito type. For the common case, the
 # built-in handlers will suffice, but you can add your own extension types and/or
 # override the built-in handlers.
 #
 # For example, Ruby has Date, Time, and DateTime, each with their
 # own semantics. Transit has an instance type, which does not
-# differentiate between Date and Time, so transit-ruby writes Dates,
-# Times, and DateTimes as transit instances, and reads transit
+# differentiate between Date and Time, so transito-ruby writes Dates,
+# Times, and DateTimes as transito instances, and reads transito
 # instances as DateTimes. If your application cares that Dates are
 # different from DateTimes, you could register custom write and read
 # handlers, overriding the built-in DateHandler and adding a new DateReadHandler.
@@ -81,28 +81,28 @@ require 'bigdecimal'
 require 'securerandom'
 require 'forwardable'
 require 'addressable/uri'
-require 'transit/date_time_util'
-require 'transit/transit_types'
-require 'transit/rolling_cache'
-require 'transit/write_handlers'
-require 'transit/read_handlers'
-require 'transit/marshaler/base'
-require 'transit/writer'
-require 'transit/decoder'
-require 'transit/reader'
+require 'transito/date_time_util'
+require 'transito/transit_types'
+require 'transito/rolling_cache'
+require 'transito/write_handlers'
+require 'transito/read_handlers'
+require 'transito/marshaler/base'
+require 'transito/writer'
+require 'transito/decoder'
+require 'transito/reader'
 
 if Transit::jruby?
   require 'lock_jar'
   LockJar.lock(File.join(File.dirname(__FILE__), "..", "Jarfile"))
   LockJar.load
-  require 'transit.jar'
+  require 'transito.jar'
   require 'jruby'
-  com.cognitect.transit.ruby.TransitService.new.basicLoad(JRuby.runtime)
-  require 'transit/marshaler/jruby/json'
-  require 'transit/marshaler/jruby/messagepack'
+  com.cognitect.transito.ruby.TransitService.new.basicLoad(JRuby.runtime)
+  require 'transito/marshaler/jruby/json'
+  require 'transito/marshaler/jruby/messagepack'
 else
-  require 'transit/marshaler/cruby/json'
-  require 'transit/marshaler/cruby/messagepack'
-  require 'transit/unmarshaler/cruby/json'
-  require 'transit/unmarshaler/cruby/messagepack'
+  require 'transito/marshaler/cruby/json'
+  require 'transito/marshaler/cruby/messagepack'
+  require 'transito/unmarshaler/cruby/json'
+  require 'transito/unmarshaler/cruby/messagepack'
 end

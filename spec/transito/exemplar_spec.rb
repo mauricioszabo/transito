@@ -127,7 +127,7 @@ EXEMPLARS = [
 end
 
 def verify_exemplar(exemplar, type, suffix)
-  path = "../transit-format/examples/0.8/simple/#{exemplar.name}#{suffix}"
+  path = "../transito-format/examples/0.8/simple/#{exemplar.name}#{suffix}"
   it "reads what we expect from #{path}" do
     raise "Can't open #{path}" unless File.exist?(path)
     File.open(path) do |io|

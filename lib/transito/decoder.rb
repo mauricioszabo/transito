@@ -13,7 +13,7 @@
 # limitations under the License.
 
 module Transit
-  # Converts a transit value to an instance of a type
+  # Converts a transito value to an instance of a type
   # @api private
   class Decoder
     MUTEX = Mutex.new
@@ -49,9 +49,9 @@ module Transit
       end
     end
 
-    # Decodes a transit value to a corresponding object
+    # Decodes a transito value to a corresponding object
     #
-    # @param node a transit value to be decoded
+    # @param node a transito value to be decoded
     # @param cache
     # @param as_map_key
     # @return decoded object
