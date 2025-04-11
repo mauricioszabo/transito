@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.cognitect.transit.ruby.unmarshaler;
+package com.cognitect.transito.ruby.unmarshaler;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -29,10 +29,10 @@ import org.jruby.runtime.Block;
 import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
 
-import com.cognitect.transit.DefaultReadHandler;
-import com.cognitect.transit.ReadHandler;
-import com.cognitect.transit.Reader;
-import com.cognitect.transit.impl.ReaderFactory;
+import com.cognitect.transito.DefaultReadHandler;
+import com.cognitect.transito.ReadHandler;
+import com.cognitect.transito.Reader;
+import com.cognitect.transito.impl.ReaderFactory;
 
 public abstract class Base extends RubyObject {
     private static final long serialVersionUID = -2693178195157618851L;
@@ -48,7 +48,7 @@ public abstract class Base extends RubyObject {
     }
     
     protected static IRubyObject newDecoder(ThreadContext context, IRubyObject opts) {
-        RubyClass decoderClass = (RubyClass) context.getRuntime().getClassFromPath("Transit::Decoder");
+        RubyClass decoderClass = (RubyClass) context.getRuntime().getClassFromPath("Transito::Decoder");
         return decoderClass.callMethod(context, "new", opts);
     }
 
@@ -77,7 +77,7 @@ public abstract class Base extends RubyObject {
         }
         // replaces TimeStringHandler to cover JRuby's bug in DateTime.iso8601() method
         if (((RubyObject)handlers.get("t")).getMetaClass().getName().
-                equals("Transit::ReadHandlers::TimeStringHandler")) {
+                equals("Transito::ReadHandlers::TimeStringHandler")) {
             javaHandlers.put("t", new ReadHandler<IRubyObject, Object>() {
                 public IRubyObject fromRep(Object o) {
                     RubyClass klazz = (RubyClass) context.getRuntime().getClassFromPath("DateTime");

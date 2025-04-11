@@ -12,25 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'stringio'
+module Transito
+  module Marshaler
 
-def time
-  start = Time.now
-  yield
-  puts "Elapsed: #{Time.now - start}"
-end
+    # @api private
+    module JsonBase
+      def initialize(io, opts)
+        parse_options(opts)
+      end
+    end
 
-class Object
-  def to_transito(format=:json)
-    sio = StringIO.new
-    Transito::Writer.new(format, sio).write(self)
-    sio.string
-  end
-end
+    # @api private
+    class Json
+      include Transito::Marshaler::Base
+      include Transito::Marshaler::JsonBase
+    end
 
-class String
-  def from_transito(format=:json)
-    sio = StringIO.new(self)
-    Transito::Reader.new(format, sio).read
+    # @api private
+    class VerboseJson
+      include Transito::Marshaler::Base
+      include Transito::Marshaler::JsonBase
+      include Transito::Marshaler::VerboseHandlers
+    end
   end
 end

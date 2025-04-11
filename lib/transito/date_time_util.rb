@@ -12,25 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'stringio'
+module Transito
+  # @api private
+  module DateTimeUtil
+    def to_millis(v)
+      case v
+      when DateTime
+        t = v.new_offset(0).to_time
+      when Date
+        t = Time.gm(v.year, v.month, v.day)
+      when Time
+        t = v
+      else
+        raise "Don't know how to get millis from #{t.inspect}"
+      end
+      (t.to_i * 1000) + (t.usec / 1000.0).round
+    end
 
-def time
-  start = Time.now
-  yield
-  puts "Elapsed: #{Time.now - start}"
-end
+    def from_millis(millis)
+      t = Time.at(millis / 1000).utc
+      DateTime.new(t.year, t.month, t.day, t.hour, t.min, t.sec + (millis % 1000 * 0.001))
+    end
 
-class Object
-  def to_transito(format=:json)
-    sio = StringIO.new
-    Transito::Writer.new(format, sio).write(self)
-    sio.string
-  end
-end
-
-class String
-  def from_transito(format=:json)
-    sio = StringIO.new(self)
-    Transito::Reader.new(format, sio).read
+    module_function :to_millis, :from_millis
   end
 end

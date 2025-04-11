@@ -10,11 +10,11 @@ Rake::Task[:spec].prerequisites << :compile
 task :default => :spec
 
 task :irb do
-  sh 'irb -I lib -r transit -I dev -r irb_tools'
+  sh 'irb -I lib -r transito -I dev -r irb_tools'
 end
 
 def project_name
-  "transit-ruby"
+  "transito-ruby"
 end
 
 def gemspec_filename
@@ -42,7 +42,7 @@ def build_version
 end
 
 def published?
-  gem_search = `gem q -rn "^transit-ruby$"`
+  gem_search = `gem q -rn "^transito-ruby$"`
   if jruby?
     gem_search =~ /\(#{revision}.*java.*\)/
   else
@@ -100,10 +100,10 @@ end
 desc "Prepare to sign the gem"
 task :prepare_to_sign do
   if jruby?
-    puts "Gem signing is disabled for transit-ruby for JRuby"
+    puts "Gem signing is disabled for transito-ruby for JRuby"
   else
-    private_key_path = File.expand_path(File.join(ENV['HOME'], '.gem', 'transit-ruby', 'gem-private_key.pem'))
-    public_key_path  = File.expand_path(File.join(ENV['HOME'], '.gem', 'transit-ruby', 'gem-public_cert.pem'))
+    private_key_path = File.expand_path(File.join(ENV['HOME'], '.gem', 'transito-ruby', 'gem-private_key.pem'))
+    public_key_path  = File.expand_path(File.join(ENV['HOME'], '.gem', 'transito-ruby', 'gem-public_cert.pem'))
     if File.exist?(public_key_path) and File.exist?(private_key_path)
       ENV['SIGN_GEM'] = 'true'
     else
@@ -140,18 +140,18 @@ end
 
 desc "Clean up generated files"
 task :clobber do
-  sh "rm -rf ./tmp ./pkg ./.yardoc doc lib/transit.jar"
+  sh "rm -rf ./tmp ./pkg ./.yardoc doc lib/transito.jar"
 end
 
 # rake compiler
 if jruby?
   require 'rake/javaextensiontask'
-  Rake::JavaExtensionTask.new('transit') do |ext|
+  Rake::JavaExtensionTask.new('transito') do |ext|
     require 'lock_jar'
     LockJar.lock
     locked_jars = LockJar.load(['default', 'development'])
 
-    ext.name = 'transit'
+    ext.name = 'transito'
     ext.ext_dir = 'ext'
     ext.lib_dir = 'lib'
     ext.source_version = '1.6'

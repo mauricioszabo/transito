@@ -21,10 +21,10 @@ directory, e.g.
     cd ..
     git clone https://github.com/cognitect/transit-format
 
-That repo contains exemplars used by transit-ruby's rspec examples
+That repo contains exemplars used by transito-ruby's rspec examples
 (in ../transit-format/examples/0.8/simple), so then you can:
 
-    cd transit-ruby
+    cd transito-ruby
     rspec
 
 MSG
@@ -35,7 +35,7 @@ require 'json'
 require 'rspec'
 require 'date' # because wrong expects it but doesn't load it :/
 require 'wrong/adapters/rspec'
-require 'transit'
+require 'transito'
 require 'spec_helper-local' if File.exist?(File.expand_path('../spec_helper-local.rb', __FILE__))
 
 RSpec.configure do |c|

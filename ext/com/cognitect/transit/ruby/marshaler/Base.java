@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.cognitect.transit.ruby.marshaler;
+package com.cognitect.transito.ruby.marshaler;
 
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -32,8 +32,8 @@ import org.jruby.runtime.Block;
 import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
 
-import com.cognitect.transit.WriteHandler;
-import com.cognitect.transit.Writer;
+import com.cognitect.transito.WriteHandler;
+import com.cognitect.transito.Writer;
 
 public class Base extends RubyObject {
     private static final long serialVersionUID = -3179062656279837886L;

@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.cognitect.transit.ruby;
+package com.cognitect.transito.ruby;
 
 import java.io.IOException;
 
@@ -28,98 +28,98 @@ public class TransitService implements BasicLibraryService {
 
     @Override
     public boolean basicLoad(Ruby runtime) throws IOException {
-        RubyModule transit = runtime.defineModule("Transit");
-        RubyModule unmarshaler = transit.defineModuleUnder("Unmarshaler");
+        RubyModule transito = runtime.defineModule("Transito");
+        RubyModule unmarshaler = transito.defineModuleUnder("Unmarshaler");
         RubyClass json_unmarshaler = unmarshaler.defineClassUnder("Json", runtime.getObject(), new ObjectAllocator() {
-            private com.cognitect.transit.ruby.unmarshaler.Json json = null;
+            private com.cognitect.transito.ruby.unmarshaler.Json json = null;
             public IRubyObject allocate(Ruby runtime, RubyClass rubyClass) {
                 if (json == null) {
-                    json = new com.cognitect.transit.ruby.unmarshaler.Json(runtime, rubyClass);
+                    json = new com.cognitect.transito.ruby.unmarshaler.Json(runtime, rubyClass);
                 }
                 try {
-                    com.cognitect.transit.ruby.unmarshaler.Json clone =
-                            (com.cognitect.transit.ruby.unmarshaler.Json)json.clone();
+                    com.cognitect.transito.ruby.unmarshaler.Json clone =
+                            (com.cognitect.transito.ruby.unmarshaler.Json)json.clone();
                     clone.setMetaClass(rubyClass);
                     return clone;
                 } catch (CloneNotSupportedException e) {
-                    return new com.cognitect.transit.ruby.unmarshaler.Json(runtime, rubyClass);
+                    return new com.cognitect.transito.ruby.unmarshaler.Json(runtime, rubyClass);
                 }
             }
         });
-        json_unmarshaler.defineAnnotatedMethods(com.cognitect.transit.ruby.unmarshaler.Json.class);
+        json_unmarshaler.defineAnnotatedMethods(com.cognitect.transito.ruby.unmarshaler.Json.class);
 
         RubyClass messagepack_unmarshaler = unmarshaler.defineClassUnder("MessagePack", runtime.getObject(), new ObjectAllocator() {
-            private com.cognitect.transit.ruby.unmarshaler.MessagePack msgpack = null;  
+            private com.cognitect.transito.ruby.unmarshaler.MessagePack msgpack = null;  
             public IRubyObject allocate(Ruby runtime, RubyClass rubyClass) {
                 if (msgpack == null) {
-                    msgpack = new com.cognitect.transit.ruby.unmarshaler.MessagePack(runtime, rubyClass);
+                    msgpack = new com.cognitect.transito.ruby.unmarshaler.MessagePack(runtime, rubyClass);
                 }
                 try {
-                    com.cognitect.transit.ruby.unmarshaler.MessagePack clone =
-                            (com.cognitect.transit.ruby.unmarshaler.MessagePack)msgpack.clone();
+                    com.cognitect.transito.ruby.unmarshaler.MessagePack clone =
+                            (com.cognitect.transito.ruby.unmarshaler.MessagePack)msgpack.clone();
                     clone.setMetaClass(rubyClass);
                     return clone;
                 } catch (CloneNotSupportedException e) {
-                    return new com.cognitect.transit.ruby.unmarshaler.MessagePack(runtime, rubyClass);
+                    return new com.cognitect.transito.ruby.unmarshaler.MessagePack(runtime, rubyClass);
                 }
             }
         });
-        messagepack_unmarshaler.defineAnnotatedMethods(com.cognitect.transit.ruby.unmarshaler.MessagePack.class);
+        messagepack_unmarshaler.defineAnnotatedMethods(com.cognitect.transito.ruby.unmarshaler.MessagePack.class);
 
-        RubyModule marshaler = transit.defineModuleUnder("Marshaler");
+        RubyModule marshaler = transito.defineModuleUnder("Marshaler");
         RubyClass json_marshaler = marshaler.defineClassUnder("Json", runtime.getObject(), new ObjectAllocator() {
-            private com.cognitect.transit.ruby.marshaler.Json json = null;
+            private com.cognitect.transito.ruby.marshaler.Json json = null;
             public IRubyObject allocate(Ruby runtime, RubyClass rubyClass) {
                 if (json == null) {
-                    json = new com.cognitect.transit.ruby.marshaler.Json(runtime, rubyClass);
+                    json = new com.cognitect.transito.ruby.marshaler.Json(runtime, rubyClass);
                 }
                 try {
-                    com.cognitect.transit.ruby.marshaler.Json clone =
-                            (com.cognitect.transit.ruby.marshaler.Json)json.clone();
+                    com.cognitect.transito.ruby.marshaler.Json clone =
+                            (com.cognitect.transito.ruby.marshaler.Json)json.clone();
                     clone.setMetaClass(rubyClass);
                     return clone;
                 } catch (CloneNotSupportedException e) {
-                    return new com.cognitect.transit.ruby.marshaler.Json(runtime, rubyClass);
+                    return new com.cognitect.transito.ruby.marshaler.Json(runtime, rubyClass);
                 }
             }
         });
-        json_marshaler.defineAnnotatedMethods(com.cognitect.transit.ruby.marshaler.Json.class);
+        json_marshaler.defineAnnotatedMethods(com.cognitect.transito.ruby.marshaler.Json.class);
 
         RubyClass verbosejson_marshaler = marshaler.defineClassUnder("VerboseJson", runtime.getObject(), new ObjectAllocator() {
-            private com.cognitect.transit.ruby.marshaler.VerboseJson verboseJson = null;
+            private com.cognitect.transito.ruby.marshaler.VerboseJson verboseJson = null;
             public IRubyObject allocate(Ruby runtime, RubyClass rubyClass) {
                 if (verboseJson == null) {
-                    verboseJson = new com.cognitect.transit.ruby.marshaler.VerboseJson(runtime, rubyClass);
+                    verboseJson = new com.cognitect.transito.ruby.marshaler.VerboseJson(runtime, rubyClass);
                 }
                 try {
-                    com.cognitect.transit.ruby.marshaler.VerboseJson clone =
-                            (com.cognitect.transit.ruby.marshaler.VerboseJson)verboseJson.clone();
+                    com.cognitect.transito.ruby.marshaler.VerboseJson clone =
+                            (com.cognitect.transito.ruby.marshaler.VerboseJson)verboseJson.clone();
                     clone.setMetaClass(rubyClass);
                     return clone;
                 } catch (CloneNotSupportedException e) {
-                    return new com.cognitect.transit.ruby.marshaler.VerboseJson(runtime, rubyClass);
+                    return new com.cognitect.transito.ruby.marshaler.VerboseJson(runtime, rubyClass);
                 }
             }
         });
-        verbosejson_marshaler.defineAnnotatedMethods(com.cognitect.transit.ruby.marshaler.VerboseJson.class);
+        verbosejson_marshaler.defineAnnotatedMethods(com.cognitect.transito.ruby.marshaler.VerboseJson.class);
 
         RubyClass messagepack_marshaler = marshaler.defineClassUnder("MessagePack", runtime.getObject(), new ObjectAllocator() {
-            private com.cognitect.transit.ruby.marshaler.MessagePack msgpack = null;
+            private com.cognitect.transito.ruby.marshaler.MessagePack msgpack = null;
             public IRubyObject allocate(Ruby runtime, RubyClass rubyClass) {
                 if (msgpack == null) {
-                    msgpack = new com.cognitect.transit.ruby.marshaler.MessagePack(runtime, rubyClass);
+                    msgpack = new com.cognitect.transito.ruby.marshaler.MessagePack(runtime, rubyClass);
                 }
                 try {
-                    com.cognitect.transit.ruby.marshaler.MessagePack clone =
-                            (com.cognitect.transit.ruby.marshaler.MessagePack)msgpack.clone();
+                    com.cognitect.transito.ruby.marshaler.MessagePack clone =
+                            (com.cognitect.transito.ruby.marshaler.MessagePack)msgpack.clone();
                     clone.setMetaClass(rubyClass);
                     return clone;
                 } catch (CloneNotSupportedException e) {
-                    return new com.cognitect.transit.ruby.marshaler.MessagePack(runtime, rubyClass);
+                    return new com.cognitect.transito.ruby.marshaler.MessagePack(runtime, rubyClass);
                 }
             }
         });
-        messagepack_marshaler.defineAnnotatedMethods(com.cognitect.transit.ruby.marshaler.MessagePack.class);
+        messagepack_marshaler.defineAnnotatedMethods(com.cognitect.transito.ruby.marshaler.MessagePack.class);
 
         return true;
     }

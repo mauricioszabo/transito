@@ -12,25 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'stringio'
+require 'msgpack'
 
-def time
-  start = Time.now
-  yield
-  puts "Elapsed: #{Time.now - start}"
-end
+module Transito
+  module Unmarshaler
+    # Transito::Reader::MessagePackUnmarshaler is responsible to read data on CRuby
+    # @see https://github.com/cognitect/transit-format
 
-class Object
-  def to_transito(format=:json)
-    sio = StringIO.new
-    Transito::Writer.new(format, sio).write(self)
-    sio.string
-  end
-end
+    # @api private
+    class MessagePack
+      def initialize(io, opts)
+        @decoder = Transito::Decoder.new(opts)
+        @unpacker = ::MessagePack::Unpacker.new(io)
+      end
 
-class String
-  def from_transito(format=:json)
-    sio = StringIO.new(self)
-    Transito::Reader.new(format, sio).read
+      # @see Reader#read
+      def read
+        if block_given?
+          @unpacker.each {|v| yield @decoder.decode(v)}
+        else
+          @decoder.decode(@unpacker.read)
+        end
+      end
+    end
   end
 end

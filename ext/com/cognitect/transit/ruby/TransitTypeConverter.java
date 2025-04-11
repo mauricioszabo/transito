@@ -1,4 +1,4 @@
-package com.cognitect.transit.ruby;
+package com.cognitect.transito.ruby;
 
 import java.util.Arrays;
 import java.util.List;

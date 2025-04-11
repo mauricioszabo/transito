@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.cognitect.transit.ruby.marshaler;
+package com.cognitect.transito.ruby.marshaler;
 
 import java.io.OutputStream;
 import java.util.Map;
@@ -25,10 +25,10 @@ import org.jruby.anno.JRubyMethod;
 import org.jruby.runtime.ThreadContext;
 import org.jruby.runtime.builtin.IRubyObject;
 
-import com.cognitect.transit.TransitFactory;
-import com.cognitect.transit.WriteHandler;
+import com.cognitect.transito.TransitFactory;
+import com.cognitect.transito.WriteHandler;
 
-@JRubyClass(name="Transit::Marshaler::Json")
+@JRubyClass(name="Transito::Marshaler::Json")
 public class Json extends Base {
     private static final long serialVersionUID = 3453641906194326319L;
 
@@ -43,7 +43,7 @@ public class Json extends Base {
     @JRubyMethod(name="new", meta=true, required=1, rest=true)
     public static IRubyObject rbNew(ThreadContext context, IRubyObject klazz, IRubyObject[] args) {
         try {
-            RubyClass rubyClass = (RubyClass)context.getRuntime().getClassFromPath("Transit::Marshaler::Json");
+            RubyClass rubyClass = (RubyClass)context.getRuntime().getClassFromPath("Transito::Marshaler::Json");
             Json json = (Json)rubyClass.allocate();
             json.callMethod(context, "initialize", args);
             json.init(context, args);
